@@ -1,0 +1,102 @@
+Description:
+A library management system helps manage books, members, and borrowing activities. This project demonstrates your ability to work with complex data structures and user management.
+
+Features:
+
+Manage books and members
+Track book borrowings and returns
+Generate overdue reports
+
+Sample Code:
+
+// Book.java
+public class Book {
+    private String title;
+    private String author;
+    private boolean isAvailable;
+
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+        this.isAvailable = true;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void borrow() {
+        isAvailable = false;
+    }
+
+    public void returnBook() {
+        isAvailable = true;
+    }
+}
+
+// Library.java
+import java.util.ArrayList;
+import java.util.List;
+
+public class Library {
+    private List<Book> books;
+
+    public Library() {
+        books = new ArrayList<>();
+    }
+
+    public void addBook(Book book) {
+        books.add(book);
+    }
+
+    public void borrowBook(String title) {
+        for (Book book : books) {
+            if (book.getTitle().equals(title) && book.isAvailable()) {
+                book.borrow();
+                System.out.println("Book borrowed: " + title);
+                return;
+            }
+        }
+        System.out.println("Book not available: " + title);
+    }
+
+    public void returnBook(String title) {
+        for (Book book : books) {
+            if (book.getTitle().equals(title) && !book.isAvailable()) {
+                book.returnBook();
+                System.out.println("Book returned: " + title);
+                return;
+            }
+        }
+        System.out.println("Book not found: " + title);
+    }
+
+    public void generateReport() {
+        for (Book book : books) {
+            System.out.println("Book: " + book.getTitle() + ", Author: " + book.getAuthor() + ", Available: " + book.isAvailable());
+        }
+    }
+}
+
+// Main.java
+public class Main {
+    public static void main(String[] args) {
+        Library library = new Library();
+        library.addBook(new Book("1984", "George Orwell"));
+        library.addBook(new Book("To Kill a Mockingbird", "Harper Lee"));
+
+        library.borrowBook("1984");
+        library.generateReport();
+
+        library.returnBook("1984");
+        library.generateReport();
+    }
+}
