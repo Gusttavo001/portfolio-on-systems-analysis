@@ -1,0 +1,47 @@
+Description:
+An expense tracker helps users manage their personal finances by tracking income and expenses. This project shows your ability to work with financial data and user interfaces.
+
+Features:
+
+Add and categorize expenses
+Track income
+Generate monthly expense reports
+
+Sample Code:
+
+// expenseTracker.js
+class Expense {
+    constructor(description, amount, category) {
+        this.description = description;
+        this.amount = amount;
+        this.category = category;
+    }
+}
+
+class ExpenseTracker {
+    constructor() {
+        this.expenses = [];
+    }
+
+    addExpense(expense) {
+        this.expenses.push(expense);
+    }
+
+    getTotalExpenses() {
+        return this.expenses.reduce((total, expense) => total + expense.amount, 0);
+    }
+
+    generateReport() {
+        console.log("Expense Report:");
+        this.expenses.forEach(expense => {
+            console.log(`Description: ${expense.description}, Amount: $${expense.amount}, Category: ${expense.category}`);
+        });
+        console.log(`Total Expenses: $${this.getTotalExpenses()}`);
+    }
+}
+
+// Example usage
+const tracker = new ExpenseTracker();
+tracker.addExpense(new Expense("Groceries", 50, "Food"));
+tracker.addExpense(new Expense("Bus Ticket", 2.5, "Transport"));
+tracker.generateReport();
